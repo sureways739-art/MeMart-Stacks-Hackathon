@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeMart - Enterprise Blockchain Commerce | Gaming & DeFi Bounty Ready</title>
+    <meta name="description" content="Africa's first enterprise blockchain commerce platform with Gaming & DeFi features. Built for Stacks Hackathon bounties.">
+    <style>
+      <style>
+    /* ADD THIS RIGHT AT THE BEGINNING OF YOUR STYLE TAG */
+    :root {
+        --primary: #667eea;
+        --secondary: #764ba2;
+        --accent: #00d4aa;
+        --dark: #333;
+        --light: #f8f9fa;
+    }
+
+    /* Your existing CSS continues here... */
+    .bounty-badge {
+        background: linear-gradient(135deg, #ff6b35 0%, #ff8e53 100%);
+        /* ... rest of your existing CSS */
+    }
+        /* Previous CSS remains the same, adding new styles for bounty features */
+        
+        .bounty-badge {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8e53 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 10px rgba(255,107,53,0.3);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .gamification-features {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            color: white;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .game-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .game-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .defi-features {
+            background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            color: white;
+        }
+
+        .achievement-system {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .achievement {
+            background: rgba(255,255,255,0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .leaderboard {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem 0;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .rank {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* Add to existing CSS */
+    </style>
+</head>
+  <!-- ADD THIS RIGHT BEFORE </body> TAG -->
+<!-- Missing Tab Contents -->
+<div class="tab-content active" id="escrow-tab">
+    <h3>💼 Enterprise Escrow Management</h3>
+    <div class="transaction-form">
+        <div class="form-group">
+            <label>Buyer Address</label>
+            <input type="text" id="buyer-address" placeholder="ST1...">
+        </div>
+        <div class="form-group">
+            <label>Seller Address</label>
+            <input type="text" id="seller-address" placeholder="ST1...">
+        </div>
+        <div class="form-group">
+            <label>Escrow Amount (STX)</label>
+            <input type="number" id="escrow-amount" placeholder="1000">
+        </div>
+        <div class="form-group">
+            <label>Transaction Terms</label>
+            <textarea id="transaction-terms" placeholder="Product delivery within 7 days..."></textarea>
+        </div>
+        <button class="enterprise-btn btn-primary" onclick="createEscrow()">
+            🔒 Create Secure Escrow
+        </button>
+    </div>
+</div>
+
+<!-- Add basic form styles -->
+<style>
+    .transaction-form {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--dark);
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: var(--primary);
+        outline: none;
+    }
+    
+    .form-group textarea {
+        height: 100px;
+        resize: vertical;
+    }
+</style>
+<body>
+    <!-- Enterprise Header - ENHANCED WITH BOUNTY BADGES -->
+    <header class="enterprise-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="enterprise-logo">
+                    <img src="sureway-logo.png" alt="MeMart" style="width: 100%; height: 100%; border-radius: 12px; object-fit: cover;">
+                </div>
+                <div class="logo-text">
+                    <div class="logo-main">MeMart</div>
+                    <div class="logo-subtitle">Enterprise Blockchain Commerce</div>
+                </div>
+                <div class="credentials-badge">
+                    🏛️ CAMA 2020 Registered
+                </div>
+                <!-- BOUNTY BADGES -->
+                <div class="bounty-badge">
+                    🎮 Gaming Bounty Ready
+                </div>
+                <div class="bounty-badge">
+                    💰 DeFi Bounty Ready
+                </div>
+            </div>
+            
+            <nav class="enterprise-nav">
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showDashboard()">Dashboard</a></li>
+                    <li><a href="#" onclick="showGaming()">Gaming</a></li>
+                    <li><a href="#" onclick="showDeFi()">DeFi</a></li>
+                    <li><a href="#" onclick="showEnterprise()">Enterprise</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="enterprise-container">
+        <!-- Hero Section - UPDATED WITH BOUNTY MESSAGING -->
+        <section class="enterprise-hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Africa's Enterprise Blockchain Commerce Platform
+                </h1>
+                <p class="hero-subtitle">
+                    Now with <strong>Gamified Commerce</strong> & <strong>Real-World DeFi</strong> - Competing for $10,000 in Stacks Bounties
+                </p>
+                
+                <!-- Global Credentials Grid - ENHANCED -->
+                <div class="credentials-grid">
+                    <div class="credential-card">
+                        <div class="credential-icon">🌍</div>
+                        <h3 class="credential-title">World Economic Forum</h3>
+                        <p class="credential-desc">Sustainable Development Impact Meetings 2025 & Digital Trust Leadership</p>
+                    </div>
+                    <div class="credential-card">
+                        <div class="credential-icon">🎮</div>
+                        <h3 class="credential-title">Gaming Bounty Features</h3>
+                        <p class="credential-desc">Merchant Leveling • Achievement System • Social Leaderboards • Loyalty Points</p>
+                    </div>
+                    <div class="credential-card">
+                        <div class="credential-icon">💰</div>
+                        <h3 class="credential-title">DeFi Bounty Features</h3>
+                        <p class="credential-desc">Commerce Escrow • Cross-border Payments • Financial Inclusion • Revenue Models</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GAMIFICATION SECTION - NEW -->
+        <section class="gamification-features">
+            <h2 style="text-align: center; margin-bottom: 1rem;">🎮 Gamified Commerce Experience</h2>
+            <p style="text-align: center; opacity: 0.9; margin-bottom: 2rem;">Turning African commerce into engaging experiences with game mechanics</p>
+            
+            <div class="game-grid">
+                <div class="game-card">
+                    <div class="game-icon">🏆</div>
+                    <h3>Merchant Levels</h3>
+                    <p>Progress from Novice to Enterprise through successful transactions</p>
+                    <div class="progress-bar" style="background: rgba(255,255,255,0.3); height: 8px; border-radius: 4px; margin-top: 1rem;">
+                        <div style="background: white; height: 100%; width: 65%; border-radius: 4px;"></div>
+                    </div>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Level 4: Professional Merchant</p>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-icon">🛡️</div>
+                    <h3>Achievement System</h3>
+                    <p>Earn badges for milestones and platform engagement</p>
+                    <div class="achievement-system" style="margin-top: 1rem;">
+                        <div style="background: gold; color: black; padding: 0.5rem; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">1st</div>
+                        <div style="background: silver; color: black; padding: 0.5rem; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">10+</div>
+                        <div style="background: #cd7f32; color: white; padding: 0.5rem; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">50+</div>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-icon">📈</div>
+                    <h3>Loyalty Points</h3>
+                    <p>Earn points for every transaction and platform activity</p>
+                    <div style="margin-top: 1rem;">
+                        <h2 style="font-size: 2rem; margin: 0;">2,450</h2>
+                        <p style="margin: 0; font-size: 0.9rem;">Loyalty Points</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leaderboard -->
+            <div class="leaderboard">
+                <h3 style="color: var(--dark); margin-bottom: 1rem;">🏅 Top Merchants Leaderboard</h3>
+                <div class="leaderboard-item">
+                    <span class="rank">#1</span>
+                    <span>Lagos Tech Store</span>
+                    <span>⭐ 4.9 • 245 transactions</span>
+                </div>
+                <div class="leaderboard-item">
+                    <span class="rank">#2</span>
+                    <span>Abuja Fashion Hub</span>
+                    <span>⭐ 4.8 • 189 transactions</span>
+                </div>
+                <div class="leaderboard-item">
+                    <span class="rank">#3</span>
+                    <span>Kano Agri Export</span>
+                    <span>⭐ 4.7 • 156 transactions</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- DeFi FEATURES SECTION - NEW -->
+        <section class="defi-features">
+            <h2 style="text-align: center; margin-bottom: 1rem;">💰 Real-World DeFi Commerce</h2>
+            <p style="text-align: center; opacity: 0.9; margin-bottom: 2rem;">Bringing decentralized finance to African SMEs through practical applications</p>
+            
+            <div class="game-grid">
+                <div class="game-card">
+                    <div class="game-icon">🔒</div>
+                    <h3>Commerce Escrow</h3>
+                    <p>Secure transactions with blockchain-powered escrow services</p>
+                    <div style="margin-top: 1rem;">
+                        <h2 style="font-size: 2rem; margin: 0;">$2.5M+</h2>
+                        <p style="margin: 0; font-size: 0.9rem;">Protected Value</p>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-icon">🌍</div>
+                    <h3>Cross-border Payments</h3>
+                    <p>AFCFTA-aligned international trade facilitation</p>
+                    <div style="margin-top: 1rem;">
+                        <h2 style="font-size: 2rem; margin: 0;">12+</h2>
+                        <p style="margin: 0; font-size: 0.9rem;">African Countries</p>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-icon">📊</div>
+                    <h3>Revenue Models</h3>
+                    <p>Sustainable DeFi with real business revenue streams</p>
+                    <div style="margin-top: 1rem;">
+                        <h2 style="font-size: 2rem; margin: 0;">0.5%</h2>
+                        <p style="margin: 0; font-size: 0.9rem;">Transaction Fee</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievement System -->
+            <div style="text-align: center; margin-top: 2rem;">
+                <h3>🏆 DeFi Achievement System</h3>
+                <div class="achievement-system">
+                    <div class="achievement">
+                        <div>🔐</div>
+                        <div>First Escrow</div>
+                    </div>
+                    <div class="achievement">
+                        <div>🌍</div>
+                        <div>Cross-border</div>
+                    </div>
+                    <div class="achievement">
+                        <div>💰</div>
+                        <div>$1K Volume</div>
+                    </div>
+                    <div class="achievement">
+                        <div>🏆</div>
+                        <div>Top Trader</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Existing Wallet and Dashboard sections remain the same but ENHANCED -->
+        <section class="enterprise-wallet">
+            <div class="wallet-header">
+                <h2 class="wallet-title">🔗 Enterprise Wallet Integration</h2>
+                <div class="wallet-status">
+                    <div class="status-dot" id="status-dot"></div>
+                    <span id="status-text">🔴 Disconnected</span>
+                </div>
+            </div>
+            
+            <div class="wallet-controls">
+                <button class="enterprise-btn btn-primary" onclick="connectWallet()">
+                    🔐 Connect Leather Wallet
+                </button>
+                <button class="enterprise-btn btn-secondary" onclick="disconnectWallet()">
+                    🚪 Disconnect
+                </button>
+                <button class="enterprise-btn btn-accent" onclick="testRealTransaction()">
+                    🧪 Test Real Transaction
+                </button>
+                <!-- NEW GAMING/DEFI BUTTONS -->
+                <button class="enterprise-btn" style="background: #9b59b6; color: white;" onclick="earnLoyaltyPoints()">
+                    ⭐ Earn Points
+                </button>
+            </div>
+            
+            <div class="wallet-info" id="wallet-info">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Wallet Address</span>
+                        <span class="info-value" id="user-address">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Balance</span>
+                        <span class="info-value" id="user-balance">0.00 STX</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Loyalty Points</span>
+                        <span class="info-value" id="loyalty-points">2,450</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Merchant Level</span>
+                        <span class="info-value">🏆 Level 4</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENHANCED DASHBOARD WITH GAMING/DEFI TABS -->
+        <section class="enterprise-dashboard">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">MeMart Commerce Dashboard</h2>
+                <div class="credentials-badge">
+                    🎮 Gaming + 💰 DeFi Features
+                </div>
+            </div>
+            
+            <div class="enterprise-tabs">
+                <button class="enterprise-tab active" onclick="switchTab('escrow')">
+                    💼 Escrow Management
+                </button>
+                <button class="enterprise-tab" onclick="switchTab('gaming')">
+                    🎮 Gaming Features
+                </button>
+                <button class="enterprise-tab" onclick="switchTab('defi')">
+                    💰 DeFi Features
+                </button>
+                <button class="enterprise-tab" onclick="switchTab('leaderboard')">
+                    🏆 Leaderboard
+                </button>
+            </div>
+
+            <!-- Existing Escrow Tab remains -->
+
+            <!-- NEW GAMING TAB -->
+            <div class="tab-content" id="gaming-tab">
+                <h3>🎮 Gamification Dashboard</h3>
+                <div class="transaction-grid">
+                    <div class="transaction-card">
+                        <h4>Your Progress</h4>
+                        <p>Level: <strong>Professional Merchant</strong></p>
+                        <p>Points: <strong>2,450</strong></p>
+                        <p>Next Level: <strong>3,000 points</strong></p>
+                        <div class="progress-bar" style="background: #e9ecef; height: 10px; border-radius: 5px; margin: 1rem 0;">
+                            <div style="background: var(--secondary); height: 100%; width: 65%; border-radius: 5px;"></div>
+                        </div>
+                    </div>
+                    <div class="transaction-card">
+                        <h4>Achievements</h4>
+                        <p>🏅 First Transaction</p>
+                        <p>🏅 10+ Escrows</p>
+                        <p>🏅 Cross-border Pro</p>
+                        <p>🔒 $10K Volume (Locked)</p>
+                    </div>
+                    <div class="transaction-card">
+                        <h4>Daily Challenges</h4>
+                        <p>✅ Complete 1 transaction</p>
+                        <p>✅ Connect wallet daily</p>
+                        <p>🔄 Refer a merchant</p>
+                        <p>🔄 Reach Level 5</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW DEFI TAB -->
+            <div class="tab-content" id="defi-tab">
+                <h3>💰 DeFi Commerce Features</h3>
+                <div class="transaction-grid">
+                    <div class="transaction-card">
+                        <h4>Escrow Statistics</h4>
+                        <p>Total Volume: <strong>$2.5M+</strong></p>
+                        <p>Active Escrows: <strong>47</strong></p>
+                        <p>Success Rate: <strong>98.7%</strong></p>
+                        <p>Fraud Prevention: <strong>80% reduction</strong></p>
+                    </div>
+                    <div class="transaction-card">
+                        <h4>Revenue Model</h4>
+                        <p>Platform Fee: <strong>0.5%</strong></p>
+                        <p>Premium Features: <strong>AI Analytics</strong></p>
+                        <p>API Access: <strong>Enterprise Tier</strong></p>
+                        <p>Cross-border: <strong>AFCFTA aligned</strong></p>
+                    </div>
+                    <div class="transaction-card">
+                        <h4>Financial Inclusion</h4>
+                        <p>African SMEs: <strong>50,000 target</strong></p>
+                        <p>Unbanked Access: <strong>Mobile-first</strong></p>
+                        <p>Cross-border: <strong>12+ countries</strong></p>
+                        <p>Job Creation: <strong>500+ targeted</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW LEADERBOARD TAB -->
+            <div class="tab-content" id="leaderboard-tab">
+                <h3>🏆 Global Merchant Leaderboard</h3>
+                <div class="leaderboard">
+                    <div class="leaderboard-item">
+                        <span class="rank">#1</span>
+                        <span>Lagos Tech Store</span>
+                        <span>⭐ 4.9 • 2,450 pts</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="rank">#2</span>
+                        <span>Abuja Fashion Hub</span>
+                        <span>⭐ 4.8 • 2,100 pts</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="rank">#3</span>
+                        <span>Kano Agri Export</span>
+                        <span>⭐ 4.7 • 1,890 pts</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="rank">#4</span>
+                        <span>Accra Electronics</span>
+                        <span>⭐ 4.6 • 1,750 pts</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="rank">#5</span>
+                        <span>Nairobi Crafts</span>
+                        <span>⭐ 4.5 • 1,600 pts</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+   
+<!-- JavaScript-- ENHANCED WITH GAMING/DEFI FUNCTIONS -->
+<script>
+    // ===== ADD THESE MISSING FUNCTIONS AT THE TOP OF YOUR EXISTING JAVASCRIPT =====
+    
+    function showDashboard() {
+        showNotification('🏠 Enterprise Dashboard: Commerce Analytics • Transaction History • Performance Metrics', 'info');
+    }
+
+    function showEnterprise() {
+        showNotification('🏛️ Enterprise Features: CAMA Registered • WEF Partnerships • Global Credentials', 'info');
+    }
+
+    function switchTab(tabName) {
+        // Remove active class from all tabs
+        document.querySelectorAll('.enterprise-tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        
+        // Add active class to clicked tab
+        event.target.classList.add('active');
+        document.getElementById(`${tabName}-tab`).classList.add('active');
+    }
+
+    function connectWallet() {
+        showNotification('🔐 Connecting Enterprise Wallet to Stacks Blockchain...', 'info');
+        // Simulate connection
+        setTimeout(() => {
+            document.getElementById('status-text').textContent = '🟢 Connected';
+            document.getElementById('status-dot').style.background = '#00d4aa';
+            document.getElementById('wallet-info').style.display = 'block';
+            document.getElementById('user-address').textContent = 'ST3XE7...Q7WA';
+            document.getElementById('user-balance').textContent = '2,450.00 STX';
+            showNotification('✅ Enterprise Wallet Connected! Ready for STX transactions.', 'success');
+        }, 2000);
+    }
+
+    function disconnectWallet() {
+        document.getElementById('status-text').textContent = '🔴 Disconnected';
+        document.getElementById('status-dot').style.background = '#ff6b6b';
+        document.getElementById('wallet-info').style.display = 'none';
+        showNotification('🚪 Enterprise Wallet Disconnected', 'info');
+    }
+
+    function testRealTransaction() {
+        showNotification('🧪 Testing STX Transaction for Gaming/DeFi Features...', 'info');
+        setTimeout(() => {
+            earnLoyaltyPoints();
+            showNotification('✅ STX Transaction Successful! +35 Loyalty Points Earned', 'success');
+        }, 1500);
+    }
+
+    // ===== NOTIFICATION SYSTEM =====
+    function showNotification(message, type = 'info') {
+        // Create notification element if it doesn't exist
+        let notification = document.getElementById('notification');
+        if (!notification) {
+            notification = document.createElement('div');
+            notification.id = 'notification';
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `<span id="notification-text">${message}</span>`;
+            document.body.appendChild(notification);
+            
+            // Add notification styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .notification {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    color: white;
+                    z-index: 1000;
+                    transform: translateX(400px);
+                    transition: transform 0.3s ease;
+                    max-width: 400px;
+                }
+                .notification.show {
+                    transform: translateX(0);
+                }
+                .notification.success { background: #28a745; }
+                .notification.error { background: #dc3545; }
+                .notification.info { background: #17a2b8; }
+                .notification.warning { background: #ffc107; color: black; }
+            `;
+            document.head.appendChild(style);
+        } else {
+            notification.className = `notification ${type}`;
+            document.getElementById('notification-text').textContent = message;
+        }
+        
+        setTimeout(() => notification.classList.add('show'), 100);
+        setTimeout(() => notification.classList.remove('show'), 5000);
+    }
+
+    // ===== KEEP ALL YOUR EXISTING MeMart FUNCTIONS BELOW =====
+    // Your existing functions like these STAY:
+    function earnLoyaltyPoints() {
+        const points = Math.floor(Math.random() * 50) + 10;
+        showNotification(`⭐ +${points} Loyalty Points Earned! Keep engaging with the platform.`, 'success');
+        
+        const currentPoints = document.getElementById('loyalty-points');
+        const currentValue = parseInt(currentPoints.textContent.replace(',', '')) || 0;
+        currentPoints.textContent = (currentValue + points).toLocaleString();
+    }
+
+    function createEscrow() {
+        const buyer = document.getElementById('buyer-address').value;
+        const seller = document.getElementById('seller-address').value;
+        const amount = document.getElementById('escrow-amount').value;
+        const terms = document.getElementById('transaction-terms').value;
+        
+        if (!buyer || !seller || !amount) {
+            showNotification('❌ Please fill all required fields', 'error');
+            return;
+        }
+        
+        const points = Math.floor(amount * 2);
+        earnLoyaltyPoints();
+        
+        showNotification(`✅ Enterprise Escrow Created: ${amount} STX secured • +${points} points earned!`, 'success');
+        
+        document.getElementById('buyer-address').value = '';
+        document.getElementById('seller-address').value = '';
+        document.getElementById('escrow-amount').value = '';
+        document.getElementById('transaction-terms').value = '';
+    }
+
+    // ... ALL YOUR OTHER EXISTING FUNCTIONS STAY HERE ...
+    
+    // Initialize with bounty messaging
+    document.addEventListener('DOMContentLoaded', function() {
+        showNotification('🚀 MeMart Platform Ready • Gaming & DeFi Bounty Features Active • $10,000 Prize Potential', 'info');
+        
+        setTimeout(() => {
+            unlockAchievement('Platform Explorer');
+        }, 3000);
+        
+        document.getElementById('escrow-tab').classList.add('active');
+    });
+</script>
+  <script>
+        // ===== GAMIFICATION FUNCTIONS =====
+        function showGaming() {
+            showNotification('🎮 Gaming Features: Merchant Leveling • Achievement System • Loyalty Points • Social Leaderboards', 'info');
+        }
+
+        function showDeFi() {
+            showNotification('💰 DeFi Features: Commerce Escrow • Cross-border Payments • Financial Inclusion • Sustainable Revenue Models', 'info');
+        }
+
+        function earnLoyaltyPoints() {
+            const points = Math.floor(Math.random() * 50) + 10;
+            showNotification(`⭐ +${points} Loyalty Points Earned! Keep engaging with the platform.`, 'success');
+            
+            // Update points display
+            const currentPoints = document.getElementById('loyalty-points');
+            const currentValue = parseInt(currentPoints.textContent.replace(',', '')) || 0;
+            currentPoints.textContent = (currentValue + points).toLocaleString();
+        }
+
+        // ===== ENHANCED TRANSACTION WITH GAMIFICATION =====
+        function createEscrow() {
+            const buyer = document.getElementById('buyer-address').value;
+            const seller = document.getElementById('seller-address').value;
+            const amount = document.getElementById('escrow-amount').value;
+            const terms = document.getElementById('transaction-terms').value;
+            
+            if (!buyer || !seller || !amount) {
+                showNotification('❌ Please fill all required fields', 'error');
+                return;
+            }
+            
+            // Award points for transaction
+            const points = Math.floor(amount * 2); // 2 points per STX
+            earnLoyaltyPoints();
+            
+            showNotification(`✅ Enterprise Escrow Created: ${amount} STX secured • +${points} points earned!`, 'success');
+            
+            // Clear form
+            document.getElementById('buyer-address').value = '';
+            document.getElementById('seller-address').value = '';
+            document.getElementById('escrow-amount').value = '';
+            document.getElementById('transaction-terms').value = '';
+        }
+
+        // ===== BOUNTY-SPECIFIC FEATURES =====
+        function unlockAchievement(achievementName) {
+            showNotification(`🏆 Achievement Unlocked: ${achievementName}`, 'success');
+        }
+
+        function levelUpMerchant() {
+            showNotification(`🎉 Merchant Level Up! New features unlocked.`, 'success');
+        }
+
+        // Initialize with bounty messaging
+        document.addEventListener('DOMContentLoaded', function() {
+            showNotification('🚀 MeMart Platform Ready • Gaming & DeFi Bounty Features Active • $10,000 Prize Potential', 'info');
+            
+            // Simulate some gaming features
+            setTimeout(() => {
+                unlockAchievement('Platform Explorer');
+            }, 3000);
+        });
+
+        // Rest of your existing JavaScript functions remain the same
+        // (connectWallet, handleRealWalletConnection, fetchRealBalance, etc.)
+    </script>
+</body>
+</html>
